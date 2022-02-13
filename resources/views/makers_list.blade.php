@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6e3ba7ddd4379b516ea7d9857818c14d1dd3b0b5
 @extends('layout')
 
 @section('title')

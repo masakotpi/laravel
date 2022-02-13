@@ -32,9 +32,6 @@
                         <li><a class="dropdown-item" href="#!">Settings</a></li>
                         <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        {{Form::open(['method' =>'post'])}}
-                        <li><a class="dropdown-item" action="{{ route('logout') }}">Logout</a></li>
-                        {{Form::close()}}
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
@@ -44,6 +41,7 @@
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
+                        <li><a class="dropdown-item" href="logout">Logout</a></li>
                     </ul>
                 </li>
             </ul>

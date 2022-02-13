@@ -59,6 +59,10 @@ Route::get('/confirm-password', [ConfirmablePasswordController::class, 'show'])
 Route::post('/confirm-password', [ConfirmablePasswordController::class, 'store'])
                 ->middleware('auth');
 
+<<<<<<< HEAD
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+=======
+Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
+>>>>>>> 6e3ba7ddd4379b516ea7d9857818c14d1dd3b0b5
                 ->middleware('auth')
                 ->name('logout');
