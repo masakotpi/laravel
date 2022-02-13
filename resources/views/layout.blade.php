@@ -32,7 +32,9 @@
                         <li><a class="dropdown-item" href="#!">Settings</a></li>
                         <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                         <li><hr class="dropdown-divider" /></li>
+                        {{Form::open(['method' =>'post'])}}
                         <li><a class="dropdown-item" href="logout">Logout</a></li>
+                        {{Form::close()}}
                     </ul>
                 </li>
             </ul>
