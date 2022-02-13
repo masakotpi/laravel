@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-// Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {
 
     //商品
     Route::get('/products','ProductController@index')->name('products_list');
@@ -24,4 +24,4 @@ use Illuminate\Support\Facades\Route;
     //商品CSVエクスポート
     Route::post('/products/csv_export','ProductCsvController@export')->name('products_export');
     Route::post('/products/csv_import','ProductCsvController@import')->name('products_import');
-// });
+});
