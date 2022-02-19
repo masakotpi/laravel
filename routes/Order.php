@@ -28,6 +28,4 @@ Route::post('/orders/delete','OrderController@delete')->name('order_delete');
 
 ## テスト1
 
-## test 2
-
 });
