@@ -26,4 +26,6 @@ Route::put('/orders/{id}','OrderController@update')->name('order_update');
 //削除
 Route::post('/orders/delete','OrderController@delete')->name('order_delete');
 
+## テスト1
+
 });
