@@ -123,7 +123,7 @@ class ProductCsvUsecase
 
         // CSV内での重複チェック
         if($datas->duplicates("商品コード")->count() > 0) {
-            $errors[] = "重複エラー 商品コード：" . $datas->duplicates("商品コード")->shift();
+            $errors[] = "CSV内での商品コード重複エラー：" . $datas->duplicates("商品コード")->shift();
         }
       
 

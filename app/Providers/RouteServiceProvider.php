@@ -68,6 +68,7 @@ class RouteServiceProvider extends ServiceProvider
      private $route_files = [
             'Product.php',
             'Maker.php',
+            'Order.php',
     ];
   
 

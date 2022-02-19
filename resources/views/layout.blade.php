@@ -60,6 +60,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 メーカー
                             </a>
+                            <a class="nav-link" href="/orders">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                発注リスト
+                            </a>
 
                             {{-- Layouts --}}
                             <div class="sb-sidenav-menu-heading">発注</div>
