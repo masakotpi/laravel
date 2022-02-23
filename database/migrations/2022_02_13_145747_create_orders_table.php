@@ -24,6 +24,7 @@ class CreateOrdersTable extends Migration
             $table->integer('per_case')->comment('入り数');
             $table->integer('quantity')->comment('数量');
             $table->integer('purchase_price')->comment('下代');
+            $table->date('expected_arraival_date')->nullable()->comment('入荷予定日');
             $table->timestamps();
         });
     }

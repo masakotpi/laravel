@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Usecases\OrderUsecase;
 use Illuminate\Http\Request;
+use App\Http\Requests\OrderRequest;
 use App\Models\Order;
 use App\Models\Product;
 use Exception;
+use App\Models\Maker;
+use Carbon\Carbon;
+
 
 class OrderController extends Controller
 {
@@ -16,26 +21,30 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-       $orders =  Order::with('maker')->get();
-       $products =  Product::get();
-       $product_list = array_column($products->toArray(),'name','id');
-       logger('maker_list');logger($product_list);
-       return view('orders_list',compact('orders','product_list'));
+       $orders =  Order::with('maker')->orderBy('expected_arraival_date','asc')->get();
+       $product_list = array_column((Product::get())->toArray(),'name','id');
+       $products = Product::get();  
+       $maker_list = array_column((Maker::get())->toArray(),'name','id');
+       $dt = New Carbon();
+       $next_order_number = 'R'.$dt->year.str_pad(isset($orders->last()->id) ? $orders->last()->id +1 : 1, 6, '0', STR_PAD_LEFT);
+       
+       return view('orders_list',
+        compact('orders','product_list','maker_list','products','next_order_number'));
     }
 
      /**
-     * メーカー新規登録
+     * 注文新規登録
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Domain\Requests\OrderRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){
+    public function store(OrderRequest $request){
         try {
-             $order =  New Order;
-             $order->fill($request->all())->save();
+             $order =  (New OrderUsecase())->store($request->all());
          } catch (Exception $e) {
              return back()->withErrors($e->getMessage());
          }
+         
          return back()->with('flash_message', '新規登録しました');
         
      }
@@ -47,10 +56,11 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(int $id, Request $request){
+    public function update(int $id, Request $request)
+    {
         try {
-            $Order =  Order::find($request->id);
-            $Order->fill($request->all())->save();
+            $order =  Order::find($request->id);
+            $order->fill($request->all())->save();
             
         } catch (Exception $e) {
            
@@ -59,7 +69,7 @@ class OrderController extends Controller
     }
 
     /**
-     * 商品一括削除
+     * 注文一括削除
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -67,14 +77,14 @@ class OrderController extends Controller
     public function delete(Request $request)
     {
         try {
-            if(!$request->Order_ids){
-                throw new Exception('商品を選択してください');
+            if(!$request->order_ids){
+                throw new Exception('注文を選択してください');
             }
-            Order::destroy($request->Order_ids);
+            Order::destroy($request->order_ids);
         } catch (Exception $e) {
             return back()->withErrors($e->getMessage());
         }
-        return back()->with('flash_message', '商品を削除しました');
+        return back()->with('flash_message', '注文を削除しました');
     }
 
     
