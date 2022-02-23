@@ -26,7 +26,7 @@ class OrderController extends Controller
        $products = Product::get();  
        $maker_list = array_column((Maker::get())->toArray(),'name','id');
        $dt = New Carbon();
-       $next_order_number = 'R'.$dt->year.str_pad(isset($orders->last()->id) ? $orders->last()->id +1 : 1, 6, '0', STR_PAD_LEFT);
+       $next_order_number = 'R'.$dt->year.str_pad(isset($orders->last()->id) ? $orders->pluck('id')->max() +1 : 1, 6, '0', STR_PAD_LEFT);
        
        return view('orders_list',
         compact('orders','product_list','maker_list','products','next_order_number'));

@@ -19,9 +19,8 @@ class CreateProductsTable extends Migration
             $table->string('code')->unique()->comment('商品コード');
             $table->integer('maker_id')->comment('メーカーID');
             $table->string('color')->nullable()->comment('カラー');
-            $table->string('size')->nullable()->comment('サイズ');
             $table->integer('per_case')->comment('入り数');
-            $table->integer('purchase_price')->comment('下代');
+            $table->float('purchase_price')->comment('下代');
             $table->integer('selling_price')->comment('上代');
             $table->timestamps();
         });

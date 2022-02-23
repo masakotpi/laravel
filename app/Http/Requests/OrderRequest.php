@@ -30,7 +30,6 @@ class OrderRequest extends FormRequest
             'product_id' => ['required','integer'],
             'quantity' => ['required','integer'],
             'color' => ['required','string'],
-            'size' => ['required','numeric'],
             'per_case' => ['required','integer'],
             'purchase_price' => ['required','numeric','regex:/^0$|^\d{1,5}(.\d{1,2})?$/'],
         ];
@@ -49,7 +48,6 @@ class OrderRequest extends FormRequest
             'product_id' => '商品ID',
             'quantity' => '数量',
             'color' => 'カラー',
-            'size' => 'サイズ',
             'per_case' => '入り数',
             'purchase_price' => '下代',
             

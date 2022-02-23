@@ -55,11 +55,10 @@ CSVインポート
         <th scope="col" width="10%">コード</th>
         <th scope="col">メーカー</th>
         <th scope="col" width="10%">カラー</th>
-        <th scope="col" width="7%">サイズ</th>
-        <th scope="col">入り数</th>
-        <th scope="col">下代</th>
-        <th scope="col">上代</th>
-        <th scope="col">更新</th>
+        <th scope="col" width="8%">入り数</th>
+        <th scope="col" width="8%">仕入値(USD)</th>
+        <th scope="col" width="8%">上代(円)</th>
+        <th scope="col" width="8%">更新</th>
       </tr>
     </thead>
     <tbody>
@@ -72,10 +71,9 @@ CSVインポート
             
             <td>{{Form::select('maker_id',$maker_list,@$product->maker_id,['form' => 'update'.$product->id,'class' => 'form-control','placeholder' =>'メーカーを選択する'])}}</td>
             <td>{{Form::text('color',$product->color,['form' => 'update'.$product->id,'class' => 'form-control'])}}</td>
-            <td>{{Form::text('size',$product->size,['form' => 'update'.$product->id,'class' => 'form-control'])}}</td>
-            <td>{{$product->per_case}}</td>
-            <td>USD{{number_format($product->purchase_price)}}</td>
-            <td>¥{{number_format($product->selling_price)}}</td>
+            <td>{{Form::text('per_case',$product->per_case,['form' => 'update'.$product->id,'class' => 'form-control'])}}</td>
+            <td>{{Form::text('purchase_price',$product->purchase_price,['form' => 'update'.$product->id,'class' => 'form-control'])}}</td>
+            <td>{{Form::text('selling_price',$product->selling_price,['form' => 'update'.$product->id,'class' => 'form-control'])}}</td>
             <td>
               {{--更新--}}
               {{Form::open(['method' => 'put','id' => 'update'.$product->id])}}

@@ -21,12 +21,11 @@ formaction="{{route('order_delete')}}">一括削除</button>
       <tr>
         <th scope="col"><input type="checkbox" id="bulk-check-action"></th>
 
-        <th scope="col">入荷予定日</th>
+        {{-- <th scope="col">入荷予定日</th> --}}
         <th scope="col">注文No.</th>
         <th scope="col">商品名/メーカー</th>
         <th scope="col" width="10%">数量</th>
         <th scope="col" width="10%">カラー</th>
-        <th scope="col" width="7%">サイズ</th>
         <th scope="col">入り数</th>
         <th scope="col">下代(US$)</th>
         <th scope="col">更新</th>
@@ -35,28 +34,28 @@ formaction="{{route('order_delete')}}">一括削除</button>
     </thead>
     <tbody id="sortable">
       @foreach($orders as $order)
-      <tr>
-        {{Form::open(['method'=>'POST', 'id' => 'delete'])}}
-              <td>{{Form::checkbox('order_ids[]',$order->id,'',['form' => 'delete','class' => 'each_ids'])}}</td>
-              <td>{{Form::date('expected_arraival_date',$order->expected_arraival_date,['class'=>'form-control p-1 w-75 text-center','form' => 'update'.$order->id])}}</td>
-              <td>{{$order->order_number}}</td>
-              <td>{{$order->product_name}}<br><small>{{$maker_list[$order->maker_id]}}</small></td>
-              <td>{{$order->quantity}}</td>
-              <td>{{$order->color}}</td>
-              <td>{{$order->size}}</td>
-              <td>{{$order->per_case}}</td>
-              <td>{{number_format($order->purchase_price,2)}}</td>
-            
-        {{Form::close()}}
-        {{Form::open(['method'=>'PUT', 'id' => 'update'.$order->id])}}
-              <td>
-                <button type="submit" formaction="{{route('order_update',['id' => $order->id])}}"class="btn-sm btn-primary">
-                更新</a>
-              </td>
-      </tr>
-        {{Form::close()}}
-        @endforeach
+        <tr>
+          {{Form::open(['method'=>'POST', 'id' => 'delete'])}}
+                <td>{{Form::checkbox('order_ids[]',$order->id,'',['form' => 'delete','class' => 'each_ids'])}}</td>
+                {{-- <td>{{Form::date('expected_arraival_date',$order->expected_arraival_date,['class'=>'form-control p-1 w-75 text-center','form' => 'update'.$order->id])}}</td> --}}
+                <td>{{$order->order_number}}</td>
+                <td>{{$order->product_name}}<br><small>{{$maker_list[$order->maker_id]}}</small></td>
+                <td>{{$order->quantity}}</td>
+                <td>{{$order->color}}</td>
+                <td>{{$order->per_case}}</td>
+                <td>{{number_format($order->purchase_price,2)}}</td>
+              
+          {{Form::close()}}
+          {{Form::open(['method'=>'PUT', 'id' => 'update'.$order->id])}}
+                <td>
+                  <button type="submit" formaction="{{route('order_update',['id' => $order->id])}}"class="btn-sm btn-primary">
+                  更新</a>
+                </td>
+        </tr>
+          {{Form::close()}}
+      @endforeach
   </tbody>
+  
 </table>
 
 
@@ -92,10 +91,6 @@ formaction="{{route('order_delete')}}">一括削除</button>
               <tr>
                 <th scope="col" width="10%">カラー<small class="text-white badge bg-danger m-3">必須</small></th>
                 <td>{{Form::text('color',null,['class'=>'form-control'])}}</td>
-              </tr>
-              <tr>
-                <th scope="col" width="7%">サイズ<small class="text-white badge bg-danger m-3">必須</small></th>
-                <td>{{Form::text('size',null,['class'=>'form-control'])}}</td>
               </tr>
               <tr>
                 <th scope="col">入り数<small class="text-white badge bg-danger m-2">必須</small></th>

@@ -20,7 +20,6 @@ class CreateOrdersTable extends Migration
             $table->integer('maker_id')->comment('メーカーID');
             $table->string('product_name')->comment('商品名');
             $table->string('color')->nullable()->comment('カラー');
-            $table->string('size')->nullable()->comment('サイズ');
             $table->integer('per_case')->comment('入り数');
             $table->integer('quantity')->comment('数量');
             $table->integer('purchase_price')->comment('下代');
