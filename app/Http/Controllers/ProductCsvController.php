@@ -20,7 +20,6 @@ class ProductCsvController extends Controller
         try {
             $exportData = $usecase->exportData($request);
         } catch (ValidationException $e) {
-            logger('request');logger($e->errors());
             return back()->withErrors($e->errors());
         }
         return $exportData['products']->exportCsv('products_export.csv',$exportData['headings']);
@@ -35,12 +34,11 @@ class ProductCsvController extends Controller
      public function import(ProductCsvUsecase $usecase , Request $request){
         
         try {
-            $usecase->import($request);
+            $errors =  $usecase->import($request);
             
         } catch (ValidationException $e) {
             return back()->withErrors($e->errors());
         }
-        $errors = $usecase->import($request);
         if(count($errors) >0){
             return back()->withErrors($errors);
         }

@@ -23,6 +23,10 @@ Route::get('/orders','OrderController@index')->name('order_index');
 Route::post('/orders/new','OrderController@store')->name('order_new');
 //更新
 Route::put('/orders/{id}','OrderController@update')->name('order_update');
+//入荷予定更新
+Route::post('/orders/shippings','OrderController@updateShippings')->name('order_update_shippings');
+//PDF発注書発行
+Route::post('/orders/issue_po','OrderController@issuePo')->name('issue_po');
 //削除
 Route::post('/orders/delete','OrderController@delete')->name('order_delete');
 

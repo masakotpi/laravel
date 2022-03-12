@@ -18,7 +18,7 @@ $(function(){
         resultElement.textContent = "" ;
         var file = element.files[0] ;
         fileReader.readAsText( file ) ;
-    // fileReader.abort() ;	// 読み込みを中止してみよう！
+    // fileReader.abort() ;	// 読み込みを中止！
     }
 
     fileReader.onload = function ( event ) {

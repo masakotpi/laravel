@@ -6,7 +6,6 @@
 
 @section('content')
 
-
 {{--削除とエクスポート--}}
 {{Form::open(['method' => 'post','id' => 'delete'])}}
 <button type="submit" id="delete" formmethod="post" class="btn btn-primary btn-sm delete" 
@@ -14,20 +13,20 @@ formaction="{{route('product_delete')}}">一括削除</button>
 
 <a href="{{route('products_export')}}">
 <button type="submit" formmethod="post" formaction="{{route('products_export')}}" class="btn btn-primary btn-sm">CSVエクスポート</button></a>
-{{Form::close()}}
 
 {{--インポート--}}
-{{-- {{Form::open(['url'=>route('products_import'),'method'=>'post','enctype'=>'multipart/form-data','class' => 'd-inline'])}} --}}
-<button type="button" class="btn-sm btn-primary d-inline" data-bs-toggle="modal" data-bs-target="#exampleModal">
-CSVインポート
-</button>
+<button type="button" class="btn-sm btn-primary d-inline" data-bs-toggle="modal" data-bs-target="#productModal">
+  CSVインポート
+  </button>
+{{Form::close()}}
+
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">CSVインポート</h5>
+        <h5 class="modal-title" id="productModalLabel">CSVインポート</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

@@ -19,9 +19,9 @@
         <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
     </head>
     <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark sb-sidenav-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="/products">ProductManager</a>
+            <a class="navbar-brand ps-3" href="/orders">ProductManager</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -54,23 +54,25 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading">商品</div>
+                            <div class="sb-sidenav-menu-heading">発注</div>
+                            <a class="nav-link" href="/orders">
+                                <div class="fas fa-book-open mx-3"><i class="fas fa-tachometer-alt"></i></div>
+                                発注・入荷予定
+                            </a>
+                        </div>
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">登録</div>
                             <a class="nav-link" href="/products">
                                 <div class="fas fa-book-open mx-3"><i class="fas fa-tachometer-alt"></i></div>
-                                商品
+                                商品登録
                             </a>
                             <a class="nav-link" href="/makers">
                                 <div class="fas fa-book-open mx-3"><i class="fas fa-tachometer-alt"></i></div>
                                 メーカー
                             </a>
-                            <a class="nav-link" href="/orders">
-                                <div class="fas fa-book-open mx-3"><i class="fas fa-tachometer-alt"></i></div>
-                                発注リスト
-                            </a>
-
-                           
                         </div>
                     </div>
+                
                 </nav>
             </div>
             <div id="layoutSidenav_content">

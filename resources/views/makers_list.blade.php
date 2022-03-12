@@ -14,9 +14,9 @@
       <tr>
         <th scope="col"></th>
         <th scope="col">新規</th>
-        <th scope="col">メーカー名</th>
-        <th scope="col">メーカー所在国</th>
-        <th scope="col">担当者</th>
+        <th scope="col" width="30%">メーカー名</th>
+        <th scope="col" width="15%">メーカー所在国</th>
+        <th scope="col" width="15%">担当者</th>
         <th scope="col">住所</th>
         <tr>
       </tr>
@@ -48,9 +48,9 @@
         <th scope="col"><input type="checkbox" id="bulk-check-action"></th>
 
         <th scope="col">ID</th>
-        <th scope="col">メーカー名</th>
-        <th scope="col">メーカー所在国</th>
-        <th scope="col">担当者</th>
+        <th scope="col" width="30%">メーカー名</th>
+        <th scope="col" width="15%">メーカー所在国</th>
+        <th scope="col" width="15%">担当者</th>
         <th scope="col">住所</th>
         <tr>
       </tr>

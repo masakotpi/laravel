@@ -10,6 +10,7 @@ use App\Models\Product;
 use Exception;
 use App\Models\Maker;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 
 class OrderController extends Controller
@@ -17,19 +18,24 @@ class OrderController extends Controller
     /**
      * 注文一覧
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index(){
-       $orders =  Order::with('maker')->orderBy('expected_arraival_date','asc')->get();
-       $product_list = array_column((Product::get())->toArray(),'name','id');
-       $products = Product::get();  
-       $maker_list = array_column((Maker::get())->toArray(),'name','id');
-       $dt = New Carbon();
-       $next_order_number = 'R'.$dt->year.str_pad(isset($orders->last()->id) ? $orders->pluck('id')->max() +1 : 1, 6, '0', STR_PAD_LEFT);
-       
-       return view('orders_list',
-        compact('orders','product_list','maker_list','products','next_order_number'));
+    public function index()
+    {
+        try {
+            $data =  (New OrderUsecase())->index();
+        } catch (Exception $e) {
+            return back()->withErrors($e->getMessage());
+        }
+        return view('orders_list',[
+            'orders'            => $data['orders'],
+            'product_list'      => $data['product_list'],
+            'maker_list'        => $data['maker_list'],
+            'products'          => $data['products'],
+            'next_order_number' => $data['next_order_number'],
+            'arrival_list'      => $data['arrival_list'],
+        ]);
+
     }
 
      /**
@@ -42,30 +48,63 @@ class OrderController extends Controller
         try {
              $order =  (New OrderUsecase())->store($request->all());
          } catch (Exception $e) {
+             DB::rollback();
              return back()->withErrors($e->getMessage());
          }
-         
+         DB::commit();
          return back()->with('flash_message', '新規登録しました');
         
-     }
-
+    }
 
     /**
-     * 商品更新
+     * 個別注文更新
+     *
+     * @param  \Illuminate\Http\OrderRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update(int $id, OrderRequest $request)
+    {
+        try {
+            $order = Order::find($id);
+            $order->fill($request->filter())->save();
+        } catch (Exception $e) {
+            return back()->withErrors($e->getMessage());
+        }
+        return redirect()->back()->with('flash_message', 'ご注文を更新しました');
+    }
+
+    /**
+     * 入荷予定更新
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(int $id, Request $request)
+    public function updateShippings(Request $request)
     {
         try {
-            $order =  Order::find($request->id);
-            $order->fill($request->all())->save();
+            (New OrderUsecase())->updateShippings($request);
             
         } catch (Exception $e) {
-           
+            return back()->withErrors($e->getMessage());
         }
-        return redirect()->back()->with('flash_message', '商品を更新しました');
+        return redirect()->back()->with('flash_message', 'ご注文の入荷予定日を更新しました');
+    }
+
+    /**
+     * PDF発注書発行
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function issuePo(OrderUsecase $usecase, Request $request)
+    {
+        try {
+            $pdf = $usecase->issuePo($request->all());
+           
+        } catch (Exception $e) {
+            return back()->withErrors($e->getMessage());
+        }
+    	return $pdf->stream();
     }
 
     /**

@@ -16,11 +16,10 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-       $products =  Product::with('maker')->get();
-       $makers =  maker::get();
-       $maker_list = array_column($makers->toArray(),'name','id');
-       logger('maker_list');logger($maker_list);
-       return view('products_list',compact('products','maker_list'));
+        $products =  Product::with('maker')->get();
+        $makers =  maker::get();
+        $maker_list = array_column($makers->toArray(),'name','id');
+        return view('products_list',compact('products','maker_list'));
     }
 
 

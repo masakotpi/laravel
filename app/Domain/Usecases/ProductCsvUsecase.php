@@ -17,7 +17,6 @@ class ProductCsvUsecase
         '商品名',
         '商品コード',
         'カラー',
-        'サイズ',
         '入り数',
         '下代（USD）',
         '上代(円)',
@@ -29,7 +28,6 @@ class ProductCsvUsecase
         '商品名' => 'name',
         '商品コード' => 'code',
         'カラー' => 'color',
-        'サイズ' => 'size',
         '入り数' => 'per_case',
         '下代（USD）' => 'purchase_price',
         '上代(円)' => 'selling_price',
@@ -56,7 +54,7 @@ class ProductCsvUsecase
             throw ValidationException::withMessages(['商品を選択してください']);
         }
         $products = Product::whereIn('id',$request->product_ids)
-        ->select('id','name','code','color','size','per_case','purchase_price','selling_price','maker_id',)->get();
+        ->select('id','name','code','color','per_case','purchase_price','selling_price','maker_id',)->get();
         //mapで整頓
         $exportData['products'] = $products->map(function($product){
             if(isset($product->maker_id)){
@@ -75,6 +73,7 @@ class ProductCsvUsecase
      */
     public function import($request)
     {
+        $products = Product::get();
         $errors =[];
         // ファイルを保存
         if($request->hasFile('csvdata')) {
@@ -97,20 +96,24 @@ class ProductCsvUsecase
         // header作成と項目数チェック
         $header = collect(self::CSV_HEADER);
         $fileHeader = collect(explode(",", $data->shift()));
+        logger('fileHeader');logger($fileHeader);
         if($header->count() !== $fileHeader->count()) {
             throw ValidationException::withMessages(['項目数エラー']);
         }
-        $data->pop(); //最後の行を削除
         
-        // 連想配列のコレクションを作成
-        try {
-            $datas = $data->map(function ($oneline) use ($header) {
+        // $data->pop();
+        
+        //ヘッダー行とデータ行をキーとバリューにして結合させる。
+        $datas = $data->map(function ($oneline) use ($header) {
+            logger('header');logger($header);
+            logger('oneline');logger($oneline);
+            if($oneline){
                 return $header->combine(collect(explode(",", $oneline)));
-                
-            });
-        } catch (Exception $e) {
-            throw ValidationException::withMessages(['項目数エラー']);
-
+            }
+        });
+        //データ最終行がNULLだったら削除する。
+        if(!$datas->last()){
+            $datas->pop();
         }
 
         // バリデーションチェック
@@ -127,14 +130,14 @@ class ProductCsvUsecase
         }
       
 
-        $products = Product::get();
+        // $products = Product::get();
         $codes = array_column($products->toArray(),'code');
         //既存コードにインポートコードが存在するか
         foreach($datas as $index => $data){
             $data = $data->toArray();
             $row = $index +1;
             if(in_array($data['商品コード'] ,$codes ,true)){
-                $errors[] = "$row 行目：商品コード：$data[商品コード]が重複しています。";
+                $errors[] = "$row 行目：商品コード：$data[商品コード]が重複していますので重複しないよう書き直してください。";
             }
         }
    
@@ -145,7 +148,6 @@ class ProductCsvUsecase
                 'code' => $data['商品コード'],
                 'maker_id' => $data['メーカーID'],
                 'color' => $data['カラー'],
-                'size' => $data['サイズ'],
                 'per_case' => $data['入り数'],
                 'purchase_price' => $data['下代（USD）'],
                 'selling_price' => $data['上代(円)'],
@@ -163,7 +165,7 @@ class ProductCsvUsecase
 
     }
 
-    /**
+   /**
      * バリデーションチェック
      */
     private function validate($user)
@@ -179,5 +181,4 @@ class ProductCsvUsecase
 
         return true;
     }
-
 }

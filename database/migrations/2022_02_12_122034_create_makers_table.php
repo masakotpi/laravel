@@ -19,9 +19,13 @@ class CreateMakersTable extends Migration
             $table->string('country');
             $table->string('person_in_charge');
             $table->string('address');
+            $table->string('tel');
             $table->timestamps();
         });
     }
+
+    /* kjkjkj
+     */
 
     /**
      * Reverse the migrations.
