@@ -6,10 +6,7 @@ use App\Domain\Usecases\OrderUsecase;
 use Illuminate\Http\Request;
 use App\Http\Requests\OrderRequest;
 use App\Models\Order;
-use App\Models\Product;
 use Exception;
-use App\Models\Maker;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 
@@ -22,11 +19,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        try {
-            $data =  (New OrderUsecase())->index();
-        } catch (Exception $e) {
-            return back()->withErrors($e->getMessage());
-        }
+        $data =  (New OrderUsecase())->index();
         return view('orders_list',[
             'orders'            => $data['orders'],
             'product_list'      => $data['product_list'],
@@ -45,6 +38,7 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(OrderRequest $request){
+        DB::beginTransaction();
         try {
              $order =  (New OrderUsecase())->store($request->all());
          } catch (Exception $e) {

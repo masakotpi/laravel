@@ -23,18 +23,15 @@ class OrderRequest extends FormRequest
      */
     public function rules()
     {
-       
-        // $this->merge(['id'=> $this->route('id')]);
         return [
-            'order_number' => ['required'],
-            'product_id' => ['required','integer'],
-            'maker_id' => ['required','integer'],
-            'product_id' => ['required','integer'],
-            'quantity' => ['required','integer'],
-            'color' => ['required','string'],
-            'per_case' => ['required','integer'],
+            'order_number'          => ['required','string','exsists:orders.order_number'],
+            'product_id'            => ['required','integer','exsists:products.id'],
+            'maker_id'              => ['required','integer','exsists:makers.id'],
+            'quantity'              => ['required','integer'],
+            'color'                 => ['required','string'],
+            'per_case'              => ['required','integer'],
             'expected_arrival_date' => ['nullable','date'],
-            'order_by' => ['required','integer'],
+            'order_by'              => ['required','integer'],
         ];
     }
     /**

@@ -23,7 +23,7 @@ class CreateOrdersTable extends Migration
             $table->string('color')->nullable()->comment('カラー');
             $table->integer('per_case')->comment('入り数');
             $table->integer('quantity')->comment('数量');
-            $table->integer('purchase_price')->comment('下代');
+            $table->float('purchase_price')->comment('下代');
             $table->date('expected_arrival_date')->nullable()->comment('入荷予定日');
             $table->timestamps();
         });

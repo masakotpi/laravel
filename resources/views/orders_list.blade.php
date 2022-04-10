@@ -51,7 +51,7 @@
                 <td>{{$order['quantity']}}</td>
                 <td>{{$order['color']}}</td>
                 <td>{{$order['per_case']}}</td>
-                <td>{{number_format($order['purchase_price'],2)}}</td>
+                <td>US${{number_format($order['purchase_price'],2)}}</td>
                 <td>
                   <button type="button" class="btn-sm btn-warning text-white update" data-bs-toggle="modal" data-bs-target="#updateOrderModal"
                   data-data="{{json_encode($order)}}">
@@ -68,21 +68,20 @@
 </table>
 
 
-{{--発注書発行--}}
-  <button type="submit" id="issue_po" formmethod="post" class="btn-sm btn-success " 
+
+<!-- 発注書発行 -->
+  <button type="submit" id="issue_po" formmethod="post" class="btn-sm btn-primary " 
   formaction="{{route('issue_po')}}">発注書発行</button>
 
-
-{{--削除--}}
-  <button type="submit" id="delete" formmethod="post" class="btn-sm btn-secondary" 
-  formaction="{{route('order_delete')}}">一括削除</button>
-{{form::close()}}
-
-
 <!-- 発注モーダルボタン -->
-<button type="button" class="btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#newOrderModal">
-  発注
-</button>
+  <button type="button" class="btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#newOrderModal">
+    発注
+  </button>
+  
+<!-- 削除 -->
+    <button type="submit" id="delete" formmethod="post" class="btn-sm btn-secondary" 
+    formaction="{{route('order_delete')}}">一括削除</button>
+  {{form::close()}}
 
 
 

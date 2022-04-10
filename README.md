@@ -25,5 +25,6 @@
 ### 
 今回はDockerを 使用していないため、下記コマンドにて起動可能
     php artisan serve
+    
 
 

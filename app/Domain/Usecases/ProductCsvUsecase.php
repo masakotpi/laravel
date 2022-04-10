@@ -3,7 +3,7 @@
 namespace App\Domain\Usecases;
 
 use App\Models\Product;
-use App\Models\maker;
+use App\Models\Maker;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;

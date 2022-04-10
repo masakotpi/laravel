@@ -6,11 +6,8 @@
 
 @section('content')
 
-{{--削除とエクスポート--}}
-{{Form::open(['method' => 'post','id' => 'delete'])}}
-<button type="submit" id="delete" formmethod="post" class="btn btn-primary btn-sm delete" 
-formaction="{{route('product_delete')}}">一括削除</button>
 
+{{Form::open(['method' => 'post','id' => 'delete'])}}
 <a href="{{route('products_export')}}">
 <button type="submit" formmethod="post" formaction="{{route('products_export')}}" class="btn btn-primary btn-sm">CSVエクスポート</button></a>
 
@@ -43,7 +40,6 @@ formaction="{{route('product_delete')}}">一括削除</button>
 </div>
 
 {{Form::close()}}
-{{-- <table class="table" id="datatablesSimple"> --}}
 <table class="table">
     <thead>
       <tr>
@@ -84,8 +80,11 @@ formaction="{{route('product_delete')}}">一括削除</button>
         @endforeach
   </tbody>
 </table>
- 
 
+{{--削除とエクスポート--}}
+{{Form::open(['method' => 'post','id' => 'delete'])}}
+<button type="submit" id="delete" formmethod="post" class="btn btn-secondary btn-sm delete" 
+formaction="{{route('product_delete')}}">一括削除</button>
 
   
 @endsection

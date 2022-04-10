@@ -22,6 +22,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/products/delete','ProductController@delete')->name('product_delete');
 
     //商品CSVエクスポート
-    Route::post('/products/csv_export','ProductCsvController@export')->name('products_export');
-    Route::post('/products/csv_import','ProductCsvController@import')->name('products_import');
+    Route::post('/products/csv_export','ProductController@export')->name('products_export');
+    Route::post('/products/csv_import','ProductController@import')->name('products_import');
 });

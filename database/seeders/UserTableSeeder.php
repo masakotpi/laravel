@@ -20,8 +20,8 @@ class UserTableSeeder extends Seeder
         [
             [
                 'name' => "山田太郎",
-                'email' => "yamada@test.com",
-                // 'email_verified_at' => "yamada@test.com",
+                'email' => "test@test.com",
+                // 'email_verified_at' => "test@test.com",
                 'password' => Hash::make('password'),
             ],
         ];
