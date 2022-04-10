@@ -35,7 +35,7 @@
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                                 <a class="small" href="password">Forgot Password?</a>
-                                                <a class="btn btn-primary" href="/orders">Login</a>
+                                                <a class="btn btn-primary" href="/portfolio">Login</a>
                                             </div>
                                         </form>
                                     </div>

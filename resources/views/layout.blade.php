@@ -70,6 +70,17 @@
                                 メーカー
                             </a>
                         </div>
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">その他</div>
+                            <a class="nav-link" href="/portfolio">
+                                <div class="fas fa-book-open mx-3"><i class="fas fa-tachometer-alt"></i></div>
+                                ポートフォリオ
+                            </a>
+                            <a class="nav-link" href="/receipi">
+                                <div class="fas fa-book-open mx-3"><i class="fas fa-tachometer-alt"></i></div>
+                                レシピ
+                            </a>
+                        </div>
                     </div>
                 
                 </nav>
